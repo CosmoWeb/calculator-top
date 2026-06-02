@@ -52,14 +52,15 @@ function storeNumbers(displayedNumbers){
         operator = displayedNumbers.indexOf(operator);
         calculator.num1 = displayedNumbers.slice(0, operator).join("");
         calculator.num2 = displayedNumbers.slice(operator +1).join("");
-        console.log(calculator.num1); 
-        console.log(calculator.num2); 
-
     }
 };
 
 function storeOperator(){
-
+      if(displayedNumbers.includes("+") || displayedNumbers.includes("-") || displayedNumbers.includes("x") || displayedNumbers.includes("÷")){
+        let operator = displayedNumbers.find((element) => element === "+" || element === "-" || element === "x" || element === "÷");
+        calculator.operator = operator;
+        console.log(calculator.operator);
+    }
 }
 
 numbers.addEventListener("click", (event) => {
@@ -71,4 +72,5 @@ numbers.addEventListener("click", (event) => {
 operators.addEventListener("click", (event) => {
     let target = event.target;
     displayDigit(target.id);
+    storeOperator(displayedNumbers);
 });
