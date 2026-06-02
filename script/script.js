@@ -1,7 +1,7 @@
 let calculator = {
 
-    num1: 0,
-    num2: 0,
+    num1: "",
+    num2: "",
     operator: null,
 
     add(num1, num2){
@@ -35,16 +35,40 @@ let calculator = {
 
 let display = document.querySelector("#display");
 let numbers = document.querySelector("#numbers");
-let operators = document.querySelector("operators");
+let operators = document.querySelector("#operators");
 let commands = document.querySelector("#commands");
+let displayedNumbers = [];
 
 function displayDigit(digits){
     let digit = document.createElement("span");
     digit.textContent = digits;
     display.appendChild(digit);
+    displayedNumbers.push(digits);
 };
 
+function storeNumbers(displayedNumbers){
+    if(displayedNumbers.includes("+") || displayedNumbers.includes("-") || displayedNumbers.includes("x") || displayedNumbers.includes("÷")){
+        let operator = displayedNumbers.find((element) => element === "+" || element === "-" || element === "x" || element === "÷");
+        operator = displayedNumbers.indexOf(operator);
+        calculator.num1 = displayedNumbers.slice(0, operator).join("");
+        calculator.num2 = displayedNumbers.slice(operator +1).join("");
+        console.log(calculator.num1); 
+        console.log(calculator.num2); 
+
+    }
+};
+
+function storeOperator(){
+
+}
+
 numbers.addEventListener("click", (event) => {
+    let target = event.target;
+    displayDigit(target.id);
+    storeNumbers(displayedNumbers);
+});
+
+operators.addEventListener("click", (event) => {
     let target = event.target;
     displayDigit(target.id);
 });
