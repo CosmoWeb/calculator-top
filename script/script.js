@@ -74,6 +74,15 @@ numbers.addEventListener("click", (event) => {
 });
 
 operators.addEventListener("click", (event) => {
+    if(displayedNumbers.includes("+") || displayedNumbers.includes("-") || displayedNumbers.includes("x") || displayedNumbers.includes("÷")){
+        result = calculator.operate();
+        console.log(result);
+        displayedNumbers = [];
+        displayedNumbers.push(result);
+        let displayedElements = document.querySelectorAll("span");
+        displayedElements.forEach(element => display.removeChild(element));
+        display.textContent = result;
+    }
     let target = event.target;
     displayDigit(target.id);
     storeOperator(displayedNumbers);
@@ -88,7 +97,9 @@ commands.addEventListener("click", event => {
         displayedNumbers.push(result);
         let displayedElements = document.querySelectorAll("span");
         displayedElements.forEach(element => display.removeChild(element));
-        display.textContent = result;
+        displayedResult = document.createElement("span");
+        displayedResult.textContent = result;
+        display.appendChild(displayedResult);
     }else if(target.id === "clear"){
         let displayedElements = document.querySelectorAll("span");
         displayedElements.forEach(element => display.removeChild(element));
